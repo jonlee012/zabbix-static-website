@@ -1,73 +1,76 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
- <meta charset="UTF-8">
- <meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Zabbix Static Website</title>
- <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zabbix Static Website</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
- <header role="banner">
- <h1>Welcome to the Zabbix Static Website</h1>
- <div class="environment">
- Environment: <span id="environment">Environment not specified</span>
- </div>
- </header>
- <main role="main">
- <p>This website demonstrates the deployment of a static site using GitHub Actions and
-Azure Static Web Apps.</p>
- <p>Zabbix is a powerful open-source tool for monitoring applications, servers, and
-networks.</p>
- <p>GitHub Actions simplifies the CI/CD process by automating testing and deployment
-workflows, while Azure Cloud offers seamless deployment options for hosting static
-websites.</p>
- </main>
+  <header role="banner">
+    <h1>Welcome to the Zabbix Static Website</h1>
+    <div class="environment">
+      Environment: <span id="environment">Environment not specified</span>
+    </div>
+  </header>
+
+  <main role="main">
+    <p>This website demonstrates the deployment of a static site using GitHub Actions and Azure Static Web Apps.</p>
+    <p>Zabbix is a powerful open-source tool for monitoring applications, servers, and networks.</p>
+    <p>GitHub Actions simplifies the CI/CD process by automating testing and deployment workflows, while Azure Cloud offers seamless deployment options for hosting static websites.</p>
+  </main>
+
   <footer role="contentinfo">
- Created by Lola Akin | Learn more about
- <a href="https://www.zabbix.com/" target="_blank" rel="noopener noreferrer">Zabbix</a>,
- <a href="https://github.com/features/actions" target="_blank" rel="noopener
-noreferrer">GitHub Actions</a>, and
- <a href="https://azure.microsoft.com/en-us/services/app-service/static/" target="_blank"
-rel="noopener noreferrer">Azure Cloud</a>.
- </footer>
- <script>
- // Dynamic environment detection
- const environment = "{{ ENVIRONMENT }}"; // Placeholder replaced by CI/CD workflow
- const body = document.body;
- if (!environment || environment === "{{ ENVIRONMENT }}") {
- console.warn("Environment not replaced. Ensure CI/CD workflow replaces the
-placeholder.");
- }
- switch (environment) {
+    Created by Lola Akin | Learn more about
+    <a href="https://www.zabbix.com/" target="_blank" rel="noopener noreferrer">Zabbix</a>,
+    <a href="https://github.com/features/actions" target="_blank" rel="noopener noreferrer">GitHub Actions</a>, and
+    <a href="https://azure.microsoft.com/en-us/services/app-service/static/" target="_blank" rel="noopener noreferrer">Azure Cloud</a>.
+  </footer>
+
+  <script>
+    // Dynamic environment detection
+    const environment = "{{ ENVIRONMENT }}"; // Placeholder replaced by CI/CD workflow
+    const body = document.body;
+
+    if (!environment || environment === "{{ ENVIRONMENT }}") {
+      console.warn("Environment not replaced. Ensure CI/CD workflow replaces the placeholder.");
+    }
+
+    switch (environment) {
       case "testing":
- document.getElementById("environment").textContent = "Testing Environment";
- body.style.setProperty("--bg-color", "#FFFAE5");
- body.style.setProperty("--header-bg", "#FFC107");
- body.style.setProperty("--env-bg", "#FF9800");
- body.style.setProperty("--env-text", "#000");
- break;
- case "staging":
- document.getElementById("environment").textContent = "Staging Environment";
- body.style.setProperty("--bg-color", "#E8F5E9");
- body.style.setProperty("--header-bg", "#4CAF50");
- body.style.setProperty("--env-bg", "#66BB6A");
- body.style.setProperty("--env-text", "#fff");
- break;
- case "production":
- document.getElementById("environment").textContent = "Production Environment";
- body.style.setProperty("--bg-color", "#E3F2FD");
- body.style.setProperty("--header-bg", "#2196F3");
- body.style.setProperty("--env-bg", "#1976D2");
- body.style.setProperty("--env-text", "#fff");
- break;
- default:
- document.getElementById("environment").textContent = "Environment not set. Please
-check deployment configuration.";
- body.style.setProperty("--bg-color", "#f9f9f9");
- body.style.setProperty("--header-bg", "#333");
- body.style.setProperty("--env-bg", "gray");
- body.style.setProperty("--env-text", "white");
- }
- </script>
+        document.getElementById("environment").textContent = "Testing Environment";
+        body.style.setProperty("--bg-color", "#FFFAE5");
+        body.style.setProperty("--header-bg", "#FFC107");
+        body.style.setProperty("--env-bg", "#FF9800");
+        body.style.setProperty("--env-text", "#000");
+        break;
+
+      case "staging":
+        document.getElementById("environment").textContent = "Staging Environment";
+        body.style.setProperty("--bg-color", "#E8F5E9");
+        body.style.setProperty("--header-bg", "#4CAF50");
+        body.style.setProperty("--env-bg", "#66BB6A");
+        body.style.setProperty("--env-text", "#fff");
+        break;
+
+      case "production":
+        document.getElementById("environment").textContent = "Production Environment";
+        body.style.setProperty("--bg-color", "#E3F2FD");
+        body.style.setProperty("--header-bg", "#2196F3");
+        body.style.setProperty("--env-bg", "#1976D2");
+        body.style.setProperty("--env-text", "#fff");
+        break;
+
+      default:
+        document.getElementById("environment").textContent = "Environment not set. Please check deployment configuration.";
+        body.style.setProperty("--bg-color", "#f9f9f9");
+        body.style.setProperty("--header-bg", "#333");
+        body.style.setProperty("--env-bg", "gray");
+        body.style.setProperty("--env-text", "white");
+    }
+  </script>
 </body>
+
 </html>
