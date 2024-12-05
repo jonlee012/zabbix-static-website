@@ -1,32 +1,38 @@
 name: Rollback Workflow
+
 on:
- workflow_run:
- workflows:
- - Deploy to Azure Static Web Apps
- types:
- - completed
+  workflow_run:
+    workflows:
+      - Deploy to Azure Static Web Apps
+    types:
+      - completed
+
 permissions:
- contents: read
- actions: write
+  contents: read
+  actions: write
+
 jobs:
- rollback:
- runs-on: ubuntu-latest
-steps:
- - name: Checkout Repository
- uses: actions/checkout@v3
- - name: Log Deployment Failure
- if: ${{ github.event.workflow_run.conclusion == 'failure' }}
-run: echo "Deployment failed. Initiating rollback procedure..."
- - name: Rollback to Previous Stable Version
- if: ${{ github.event.workflow_run.conclusion == 'failure' }}
- run: |
- echo "Rolling back to the previous stable version..."
- # Add your rollback steps here, such as redeploying an earlier commit or using
-backup artifacts.
- - name: Confirm Rollback
- if: ${{ github.event.workflow_run.conclusion == 'failure' }}
- run: echo "Rollback to the previous stable version completed."
- - name: Log Rollback Skipped Reason
- if: ${{ github.event.workflow_run.conclusion != 'failure' }}
- run: echo "Rollback skipped because the deployment workflow completed
-successfully."
+  rollback:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Log Deployment Failure
+        if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+        run: echo "Deployment failed. Initiating rollback procedure..."
+
+      - name: Rollback to Previous Stable Version
+        if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+        run: |
+          echo "Rolling back to the previous stable version..."
+          # Add your rollback steps here, such as redeploying an earlier commit or using
+          # backup artifacts.
+
+      - name: Confirm Rollback
+        if: ${{ github.event.workflow_run.conclusion == 'failure' }}
+        run: echo "Rollback to the previous stable version completed."
+
+      - name: Log Rollback Skipped Reason
+        if: ${{ github.event.workflow_run.conclusion != 'failure' }}
+        run: echo "Rollback skipped because the deployment workflow completed successfully."
