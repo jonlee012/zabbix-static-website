@@ -1,0 +1,36 @@
+name: Test Before Deployment
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Install Dependencies
+        run: |
+          npm install # Replace this with the package manager for your project
+
+      - name: Run Tests
+        run: |
+          npm test # Replace with your project's test command
+          echo "All tests passed successfully."
+
+      - name: Notify Test Success
+        if: success()
+        run: echo "Tests passed. Proceeding to deployment workflow..."
+
+      - name: Notify Test Failure
+        if: failure()
+        run: echo "Tests failed. Deployment workflow will not be triggered."
